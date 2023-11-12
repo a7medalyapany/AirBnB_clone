@@ -14,6 +14,57 @@ from time import sleep
 from models.amenity import Amenity
 
 
+class TestAmenity_save(unittest.TestCase):
+    """Unittests for testing save method of the Amenity class."""
+
+    @classmethod
+    def setUp(self):
+        try:
+            os.rename("file.json", "tmp")
+        except IOError:
+            pass
+
+    def tearDown(self):
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("tmp", "file.json")
+        except IOError:
+            pass
+
+    def test_one_save(self):
+        am = Amenity()
+        sleep(0.05)
+        first_updated_at = am.updated_at
+        am.save()
+        self.assertLess(first_updated_at, am.updated_at)
+
+    def test_two_saves(self):
+        am = Amenity()
+        sleep(0.05)
+        first_updated_at = am.updated_at
+        am.save()
+        second_updated_at = am.updated_at
+        self.assertLess(first_updated_at, second_updated_at)
+        sleep(0.05)
+        am.save()
+        self.assertLess(second_updated_at, am.updated_at)
+
+    def test_save_with_arg(self):
+        am = Amenity()
+        with self.assertRaises(TypeError):
+            am.save(None)
+
+    def test_save_updates_file(self):
+        am = Amenity()
+        am.save()
+        amid = "Amenity." + am.id
+        with open("file.json", "r") as f:
+            self.assertIn(amid, f.read())
+
+
 class TestAmenity_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the Amenity class."""
 
@@ -83,57 +134,6 @@ class TestAmenity_instantiation(unittest.TestCase):
     def test_instantiation_with_None_kwargs(self):
         with self.assertRaises(TypeError):
             Amenity(id=None, created_at=None, updated_at=None)
-
-
-class TestAmenity_save(unittest.TestCase):
-    """Unittests for testing save method of the Amenity class."""
-
-    @classmethod
-    def setUp(self):
-        try:
-            os.rename("file.json", "tmp")
-        except IOError:
-            pass
-
-    def tearDown(self):
-        try:
-            os.remove("file.json")
-        except IOError:
-            pass
-        try:
-            os.rename("tmp", "file.json")
-        except IOError:
-            pass
-
-    def test_one_save(self):
-        am = Amenity()
-        sleep(0.05)
-        first_updated_at = am.updated_at
-        am.save()
-        self.assertLess(first_updated_at, am.updated_at)
-
-    def test_two_saves(self):
-        am = Amenity()
-        sleep(0.05)
-        first_updated_at = am.updated_at
-        am.save()
-        second_updated_at = am.updated_at
-        self.assertLess(first_updated_at, second_updated_at)
-        sleep(0.05)
-        am.save()
-        self.assertLess(second_updated_at, am.updated_at)
-
-    def test_save_with_arg(self):
-        am = Amenity()
-        with self.assertRaises(TypeError):
-            am.save(None)
-
-    def test_save_updates_file(self):
-        am = Amenity()
-        am.save()
-        amid = "Amenity." + am.id
-        with open("file.json", "r") as f:
-            self.assertIn(amid, f.read())
 
 
 class TestAmenity_to_dict(unittest.TestCase):

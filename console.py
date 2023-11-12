@@ -79,17 +79,17 @@ class HBNBCommand(cmd.Cmd):
         print()
         return True
 
-    def do_quit(self, line):
+    def doQuit(self, line):
         """Exits the program.
         """
         return True
 
-    def emptyline(self):
+    def emptyLine(self):
         """Doesn't do anything on ENTER.
         """
         pass
 
-    def do_create(self, line):
+    def doCreate(self, line):
         """Creates an instance.
         """
         if line == "" or line is None:
@@ -101,7 +101,7 @@ class HBNBCommand(cmd.Cmd):
             b.save()
             print(b.id)
 
-    def do_show(self, line):
+    def doShow(self, line):
         """Prints the string representation of an instance.
         """
         if line == "" or line is None:
@@ -119,7 +119,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     print(storage.all()[key])
 
-    def do_destroy(self, line):
+    def doDestroy(self, line):
         """Deletes an instance based on the class name and id.
         """
         if line == "" or line is None:
@@ -138,7 +138,7 @@ class HBNBCommand(cmd.Cmd):
                     del storage.all()[key]
                     storage.save()
 
-    def do_all(self, line):
+    def doAll(self, line):
         """Prints all string representation of all instances.
         """
         if line != "":
@@ -153,7 +153,7 @@ class HBNBCommand(cmd.Cmd):
             new_list = [str(obj) for key, obj in storage.all().items()]
             print(new_list)
 
-    def do_count(self, line):
+    def doCount(self, line):
         """Counts the instances of a class.
         """
         words = line.split(' ')
@@ -167,7 +167,7 @@ class HBNBCommand(cmd.Cmd):
                     words[0] + '.')]
             print(len(matches))
 
-    def do_update(self, line):
+    def doUpdate(self, line):
         """Updates an instance by adding or updating attribute.
         """
         if line == "" or line is None:
