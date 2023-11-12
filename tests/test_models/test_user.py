@@ -20,7 +20,7 @@ class TestUser_instantiation(unittest.TestCase):
     def test_no_args_instantiates(self):
         self.assertEqual(User, type(User()))
 
-    def test_new_instance_stored_in_objects(self):
+    def test_nInstance_stored_in_objects(self):
         self.assertIn(User(), models.storage.all().values())
 
     def test_id_is_public_str(self):
@@ -154,14 +154,14 @@ class TestUser_to_dict(unittest.TestCase):
         self.assertIn("updated_at", us.to_dict())
         self.assertIn("__class__", us.to_dict())
 
-    def test_to_dict_contains_added_attributes(self):
+    def test_to_dict_contains_added_attrs(self):
         us = User()
         us.middle_name = "Holberton"
         us.my_number = 98
         self.assertEqual("Holberton", us.middle_name)
         self.assertIn("my_number", us.to_dict())
 
-    def test_to_dict_datetime_attributes_are_strs(self):
+    def test_to_dict_datetime_attrs_are_strs(self):
         us = User()
         us_dict = us.to_dict()
         self.assertEqual(str, type(us_dict["id"]))

@@ -72,7 +72,7 @@ class TestBaseModel_instantiation(unittest.TestCase):
     def test_no_args_instantiates(self):
         self.assertEqual(BaseModel, type(BaseModel()))
 
-    def test_new_instance_stored_in_objects(self):
+    def test_nInstance_stored_in_objects(self):
         self.assertIn(BaseModel(), models.storage.all().values())
 
     def test_id_is_public_str(self):
@@ -153,14 +153,14 @@ class TestBaseModel_to_dict(unittest.TestCase):
         self.assertIn("updated_at", bm.to_dict())
         self.assertIn("__class__", bm.to_dict())
 
-    def test_to_dict_contains_added_attributes(self):
+    def test_to_dict_contains_added_attrs(self):
         bm = BaseModel()
         bm.name = "Holberton"
         bm.my_number = 98
         self.assertIn("name", bm.to_dict())
         self.assertIn("my_number", bm.to_dict())
 
-    def test_to_dict_datetime_attributes_are_strs(self):
+    def test_to_dict_datetime_attrs_are_strs(self):
         bm = BaseModel()
         bm_dict = bm.to_dict()
         self.assertEqual(str, type(bm_dict["created_at"]))

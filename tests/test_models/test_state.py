@@ -20,7 +20,7 @@ class TestState_instantiation(unittest.TestCase):
     def test_no_args_instantiates(self):
         self.assertEqual(State, type(State()))
 
-    def test_new_instance_stored_in_objects(self):
+    def test_nInstance_stored_in_objects(self):
         self.assertIn(State(), models.storage.all().values())
 
     def test_id_is_public_str(self):
@@ -32,7 +32,7 @@ class TestState_instantiation(unittest.TestCase):
     def test_updated_at_is_public_datetime(self):
         self.assertEqual(datetime, type(State().updated_at))
 
-    def test_name_is_public_class_attribute(self):
+    def test_name_is_public_class_attr(self):
         st = State()
         self.assertEqual(str, type(State.name))
         self.assertIn("name", dir(st))
@@ -148,14 +148,14 @@ class TestState_to_dict(unittest.TestCase):
         self.assertIn("updated_at", st.to_dict())
         self.assertIn("__class__", st.to_dict())
 
-    def test_to_dict_contains_added_attributes(self):
+    def test_to_dict_contains_added_attrs(self):
         st = State()
         st.middle_name = "Holberton"
         st.my_number = 98
         self.assertEqual("Holberton", st.middle_name)
         self.assertIn("my_number", st.to_dict())
 
-    def test_to_dict_datetime_attributes_are_strs(self):
+    def test_to_dict_datetime_attrs_are_strs(self):
         st = State()
         st_dict = st.to_dict()
         self.assertEqual(str, type(st_dict["id"]))

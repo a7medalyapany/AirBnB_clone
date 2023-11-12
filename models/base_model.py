@@ -11,7 +11,7 @@ class BaseModel:
     """Class from which all other classes will inherit"""
 
     def __init__(self, *args, **kwargs):
-        """Initializes instance attributes
+        """Initializes instance attrs
 
         Args:
             - *args: list of arguments
@@ -41,7 +41,7 @@ class BaseModel:
             format(type(self).__name__, self.id, self.__dict__)
 
     def save(self):
-        """updates the public instance attribute updated_at"""
+        """updates the public instance attr updated_at"""
 
         self.updated_at = datetime.now()
         storage.save()
