@@ -57,7 +57,7 @@ class FileStorage:
             FileStorage.__objects = obj_dict
 
     def attributes(self):
-        """Returns the valid attributes and their types for classname"""
+        """Returns the valid attributes and their types for cName"""
         attributes = {
             "BaseModel":
                      {"id": str,
